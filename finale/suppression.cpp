@@ -1,8 +1,7 @@
 #include "suppression.h"
 #include "ui_suppression.h"
-#include"employee.h"
+#include "partenaire.h"
 #include <QMessageBox>
-
 suppression::suppression(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::suppression)
@@ -15,21 +14,21 @@ suppression::~suppression()
     delete ui;
 }
 
-void suppression::on_supprimer_LE_clicked()
-{
-    // Get the name of the employee to be deleted
-    QString nom = ui->supprimer_LE->text();
-  QSqlQuery query;
-    // Create a QSqlQuery object
-    Employee employee;
-    bool test =employee.supprimer(nom);
-    // Prepare the SQL query to delete the employee with the given name
 
-    // Execute the query
+
+void suppression::on_pushButton_clicked()
+{
+
+    QString matriculeFiscale = ui->matriculeFiscale_LE->text(); // Obtenez le nom à partir de votre interface utilisateur
+
+    partenaire etemp;
+    bool test = etemp.supprimer(matriculeFiscale);
+
+    // Vérifier si la suppression a réussi et afficher un message en conséquence
     if (test) {
-        QMessageBox::information(this, "Success", "Employee deleted successfully.");
+        QMessageBox::information(this, "Succès", "Suppression effectuée avec succès!");
     } else {
-        QMessageBox::warning(this, "Error", "Failed to delete employee:" + query.lastError().text());
+        QMessageBox::warning(this, "Erreur", "La suppression n'a pas pu être effectuée.");
     }
 }
 

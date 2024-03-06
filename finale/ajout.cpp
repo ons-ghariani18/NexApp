@@ -1,9 +1,7 @@
 #include "ajout.h"
 #include "ui_ajout.h"
-#include"employee.h"
 #include <QMessageBox>
-
-
+#include "partenaire.h"
 ajout::ajout(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ajout)
@@ -15,24 +13,25 @@ ajout::~ajout()
 {
     delete ui;
 }
+
 void ajout::on_pushButton_clicked()
 {
-    // Récupérer les données depuis les champs de saisie de l'interface utilisateur
-    QString nom = ui->lineEdit_Nom->text();
-    QString prenom = ui->lineEdit_Prenom->text();
-    QString email = ui->lineEdit_Email->text();
-    QString salaire = ui->lineEdit_Salaire->text(); // Convertir la valeur du salaire en double
+    QString matriculeFiscale = ui->matriculeFiscale_LE->text();
+    QString nomEntreprise = ui->nomEntreprise_LE->text();
+    QString numeroTelephone = ui->numeroTelephone_LE->text();
+     QString adresse = ui->adresse_LE->text();
+    QString dureeContrat = ui->dureeContrat_LE->text();
+    QString secteurActivite = ui->secteurActivite_LE->text();
+    QString interet = ui->interet_TE->toPlainText();
 
-    // Créer un nouvel objet Employee avec les données récupérées
+    partenaire p( matriculeFiscale,nomEntreprise, adresse, numeroTelephone, dureeContrat, secteurActivite, interet);
+    bool test = p.ajouter();
 
-Employee employee(nom, prenom, email, salaire);
-    // Appeler la méthode ajouter() pour insérer le nouvel employé dans la base de données
-    bool insertionReussie = employee.ajouter();
-
-    // Afficher un message en fonction du résultat de l'insertion
-    if (insertionReussie) {
-        QMessageBox::information(this, "Succès", "Nouvel employé ajouté avec succès !");
+    if (test) {
+        QMessageBox::information(this, "Succès", "Ajout effectué avec succès!");
     } else {
-        QMessageBox::warning(this, "Erreur", "Échec de l'ajout du nouvel employé.");
+        QMessageBox::warning(this, "Erreur", "L'ajout n'a pas pu être effectué.");
     }
+
 }
+

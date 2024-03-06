@@ -1,5 +1,6 @@
 #ifndef SUPPRESSION_H
 #define SUPPRESSION_H
+#include "partenaire.h"
 
 #include <QDialog>
 
@@ -16,10 +17,11 @@ public:
     ~suppression();
 
 private slots:
-    void on_supprimer_LE_clicked();
+    void on_pushButton_clicked();
 
 private:
     Ui::suppression *ui;
+    partenaire p ;
 };
 
 #endif // SUPPRESSION_H
